@@ -1,0 +1,20 @@
+
+{
+	"id": "nodebb-plugin-mega-teamspeak",
+	"name": "Mega Teamspeak 3 tools",
+	"library": "./library.js",
+	"less": [
+		"public/less/default.less"
+	],
+	"scripts": [
+		"public/js"
+	],
+	"staticDirs": {
+		"images": "public/images"
+	},
+	"hooks": [
+		{ "hook": "static:app.load", "method": "init" },
+		{ "hook": "action:groups.join", "method": "syncSgids" },
+		{ "hook": "action:groups.leave", "method": "syncSgids" }
+	]
+}

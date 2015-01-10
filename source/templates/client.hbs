@@ -1,0 +1,35 @@
+{{#if userslug}} <a href="/user/{{ userslug }}" class="ts-userlink">{{/if}}
+<div class="ts-client{{#if userslug}} ts-userlink{{/if}}" id="ts-client-{{ clid }}">
+	{{#each prefix}}
+		<div class="ts-prefix {{ this }}">&nbsp;</div>
+	{{/each}}
+
+	<div class="ts-client-flag {{ flag }}">&nbsp;</div>
+
+	<div class="ts-client-body">
+		<div class="ts-client-header{{#unless userslug}} ts-gray-client{{/unless}}">
+			{{ nick }}
+		</div>
+	</div>
+
+	{{#if client_country}}
+		<div class="ts-client-info" style="
+			background: url( '{{ iconPath }}countries/{{ client_country }}.png' ) no-repeat center center;
+		">&nbsp;</div>
+	{{/if}}
+
+	{{#if client_servergroups}}
+		{{#each client_servergroups}}
+			<div class="ts-client-info" style="
+				background: url( '{{ ../iconPath }}servergroups/{{ this }}.png' ) no-repeat center center;
+			">&nbsp;</div>
+		{{/each}}
+	{{/if}}
+
+	{{#if client_channel_group_id}}
+		<div class="ts-client-info" style="
+			background: url( '{{ iconPath }}channelgroups/{{ client_channel_group_id }}.png' ) no-repeat center center;
+		">&nbsp;</div>
+	{{/if}}
+</div>
+{{#if userslug}}</a>{{/if}}

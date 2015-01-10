@@ -1,0 +1,18 @@
+<div class="ts-channel{{#if is_spacer}} spacer-{{ is_spacer }}{{/if}}" id="ts-channel-{{ cid }}">
+	{{#if channel_icon}}
+		<div class="ts-prefix {{ channel_icon }}">&nbsp;</div>
+	{{/if}}
+	<div class="ts-channel-header">{{{ channel_name }}}</div>
+
+	<div class="ts-channel-clients" id="ts-channel-clients-{{ cid }}">
+		{{#if clients}}
+			{{{ clients }}}
+		{{/if}}
+	</div>
+
+	<div class="ts-channel-channels" id="ts-channel-channels-{{ cid }}">
+		{{#if channels}}
+			{{{ channels }}}
+		{{/if}}
+	</div>
+</div>
