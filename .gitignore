@@ -1,2 +1,2 @@
 node_modules/
-logs/main.log
+logs/**
