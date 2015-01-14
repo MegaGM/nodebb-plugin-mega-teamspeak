@@ -101,7 +101,6 @@ var waterfallCallback = function ( err ) {
 		app.res.end( methods.getError( { id: 17007 } ) );
 		return methods.logError( methods.getError( err ), __filename );
 	}
-
 	app.res.end( renderOnline( data ) );
 	winston.verbose( '[ Mega:Teamspeak ] BuilderOnline: Success' );
 };
