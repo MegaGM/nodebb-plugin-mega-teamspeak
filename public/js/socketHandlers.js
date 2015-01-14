@@ -3,35 +3,39 @@
 * ---------------------------------------------*/
 $( document ).ready( function ( ) {
 	socket.on( 'mega:teamspeak.reload', function ( data ) {
-		$.get( RELATIVE_PATH + '/mega/teamspeak/builder', {}, function ( data ) {
-			$( '#mega-teamspeak' ).html( data );
-		});
+		methods.reload.teamspeak( );
+	});
+
+	socket.on( 'mega:online.reload', function ( data ) {
+		methods.reload.online( );
 	});
 
 	var pingOnline = function ( ) {
 		socket.emit( 'modules.pingOnline' );
 	};
-
-	console.log( 'ONBEFORE pingOnline' );
 	setInterval( pingOnline, 59 * 1000 );
-	pingOnline( );
 
 	socket.on( 'mega:teamspeak.events', function ( data ) {
+		console.log( 'mega:teamspeak.events ', data.key, data );
+		if ( 'online' === data.key || 'offline' === data.key ) {
+			methods.reload.online( );
+		}
+
 		if ( data.key === 'online' ) {
 			var client = $( data.body ).hide( )
 				.appendTo( '#ts-channel-clients-' + data.cid );
 
 			client
-				.animate({ backgroundColor: '#90CC74' }, 0 )
-				.slideDown( )
-				.animate({ backgroundColor: '' }, 1000 );
+				.fadeIn( );
 			return;
 		}
 
 		if ( data.key === 'offline' ) {
-			$( '#ts-client-' + data.clid )
-				.animate({ backgroundColor: '#FF8080' }, 1000 )
-				.slideUp( function ( ) {
+			var client = $( '#ts-client-' + data.clid ).parent( 'a.ts-userlink' ).length
+				? $( '#ts-client-' + data.clid ).parent( 'a.ts-userlink' )
+				: $( '#ts-client-' + data.clid );
+			client
+				.fadeOut( function ( ) {
 					this.remove( );
 				});
 			return;

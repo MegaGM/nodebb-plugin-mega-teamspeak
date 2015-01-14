@@ -1,12 +1,8 @@
 'use strict';
 
 var async = require.main.require( 'async' ),
-	config = require( './config' ),
-	_ = require( 'lodash' ),
 	winston = require.main.require( 'winston' ),
 	methods = require( './lib/methods' ),
-	nconf = require.main.require( 'nconf' ),
-	user = require.main.require( './src/user' ),
 	startCycle,
 	data = { }, app = { };
 
@@ -58,9 +54,6 @@ var waterfallCallback = function ( err, data ) {
 		return methods.logError( methods.getError( err ), __filename );
 	}
 
-	/*data.renderedTree += "<script>$( 'a.ts-userlink' ).on( 'click', function ( event ) { console.log( 'window.on.click.ts-client' ); event.preventDefault( ); });</script>";*/
-
-	/*data.renderedTree += '<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />MEOW';*/
 	app.res.end( data.renderedTree );
 	winston.verbose( '[ Mega:Teamspeak ] Builder: Success' );
 };

@@ -1,5 +1,5 @@
-$( document ).ready( function ( ) {
 
+$( document ).ready( function ( ) {
 	/* ---------------------------------------------
 	* Define initial variables
 	* ---------------------------------------------*/
@@ -68,25 +68,23 @@ $( document ).ready( function ( ) {
 	/* ---------------------------------------------
 	* Register Event Handlers
 	* ---------------------------------------------*/
-	$.get( RELATIVE_PATH + '/mega/teamspeak/builder', {}, function ( data ) {
-		$( '#mega-teamspeak' ).html( data );
-	});
+	methods.reload.online( );
+	methods.reload.teamspeak( );
 
 	$( document ).on( 'click', 'a.ts-userlink', function ( event ) {
-		console.log( 'document.on.click.ts-client' );
 		event.preventDefault( );
 	});
 
-	$( window ).on( 'action:ajaxify.end', function ( e, data ) {
+/*	$( window ).on( 'action:ajaxify.end', function ( e, data ) {
 	});
 
 	$( window ).on( 'action:connected', function ( e, data ) {
 	});
 
-	/*$( document ).scroll( $.throttle( 10, tsMove ) );*/
+*/	/*$( document ).scroll( $.throttle( 10, tsMove ) );*/
 	/*$( document ).scroll( tsMove );*/
 
-	$( document ).on( 'mega:teamspeak.events', function ( ) {
+/*	$( document ).on( 'mega:teamspeak.events', function ( ) {
 		console.log( 'document mega:teamspeak.events!!!!!!!!!!!!!', arguments );
 	});
 
@@ -107,5 +105,5 @@ $( document ).ready( function ( ) {
 		console.log( 'action:reconnected', arguments );
 	});
 
-
+*/
 });

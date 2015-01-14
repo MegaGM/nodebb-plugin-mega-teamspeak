@@ -1,9 +1,6 @@
 'use strict';
 
 var async = require.main.require( 'async' ),
-	config = require( './config' ),
-	_ = require( 'lodash' ),
-	winston = require.main.require( 'winston' ),
 	methods = require( './lib/methods' ),
 	renderCldbids = require( './templates/cldbids' ),
 	user = require.main.require( './src/user' );

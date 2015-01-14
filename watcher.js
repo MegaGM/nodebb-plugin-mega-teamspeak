@@ -2,11 +2,8 @@
 
 var async = require.main.require( 'async' ),
 	config = require( './config' ),
-	_ = require( 'lodash' ),
 	winston = require.main.require( 'winston' ),
 	methods = require( './lib/methods' ),
-	user = require.main.require( './src/user' ),
-	nconf = require.main.require( 'nconf' ),
 	SocketIndex = require.main.require( './src/socket.io/index' ),
 	startCycle, resumeCycle,
 	data = { }, cycleCount = -1;

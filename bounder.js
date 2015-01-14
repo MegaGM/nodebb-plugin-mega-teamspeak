@@ -101,7 +101,7 @@ Controller.boundTeamspeakAccount = function ( uid, cldbid, callback ) {
 module.exports = function ( socket, data, callback ) {
 
 	var waterfallCallback = function ( err, msg ) {
-		if ( err ) methods.logError( '[ Mega:Teamspeak.bounder ] waterfallCallback', __filename );
+		if ( err ) winston.verbose( err );
 		err ? callback( null, { err: err.toString( ) } ) : callback( null, { msg: msg } );
 	};
 

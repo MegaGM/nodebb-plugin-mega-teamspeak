@@ -1,13 +1,10 @@
 'use strict';
 
 var async = require.main.require( 'async' ),
-	config = require( './config' ),
-	_ = require( 'lodash' ),
 	winston = require.main.require( 'winston' ),
 	methods = require( './lib/methods' ),
 	syncSgids = require( './lib/syncSgids' ),
-	SocketIndex = module.parent.parent.require( './socket.io/index' ),
-	cl, startModule;
+	SocketIndex = module.parent.parent.require( './socket.io/index' );
 
 
 /* ---------------------------------------------
