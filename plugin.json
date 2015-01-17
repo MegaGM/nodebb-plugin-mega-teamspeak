@@ -4,7 +4,10 @@
 	"name": "Mega Teamspeak 3 tools",
 	"library": "./library.js",
 	"less": [
-		"public/less/default.less"
+		"public/less/main.less"
+	],
+	"css": [
+		"public/css/animate.min.css"
 	],
 	"scripts": [
 		"public/js"

@@ -1,0 +1,27 @@
+.clearfix() {
+	&:before,
+	&:after {
+		content: " ";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+.clearfix {
+	.clearfix( );
+}
+
+.no-gutter {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.ts-prefix, .ts-client-flag, .ts-client-header, .ts-channel-header, .ts-client-info {
+	display: inline-block;
+}
+
+.ts-client {
+	.clearfix( );
+}

@@ -98,7 +98,7 @@ var waterfallArr = [
 
 var waterfallCallback = function ( err ) {
 	if ( err ) {
-		app.res.end( methods.getError( { id: 17007 } ) );
+		app.res.end( methods.getError( { id: 12007 } ) );
 		return methods.logError( methods.getError( err ), __filename );
 	}
 	app.res.end( renderOnline( data ) );

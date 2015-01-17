@@ -26,16 +26,16 @@ $( document ).ready( function ( ) {
 				.appendTo( '#ts-channel-clients-' + data.cid );
 
 			client
-				.fadeIn( );
+				.addClass( 'rollIn' )
+				.show( 'medium' );
 			return;
 		}
 
 		if ( data.key === 'offline' ) {
-			var client = $( '#ts-client-' + data.clid ).parent( 'a.ts-userlink' ).length
-				? $( '#ts-client-' + data.clid ).parent( 'a.ts-userlink' )
-				: $( '#ts-client-' + data.clid );
+			var client = $( '#ts-client-' + data.clid );
 			client
-				.fadeOut( function ( ) {
+				.addClass( 'rollOut' )
+				.hide( 'slow', function ( ) {
 					this.remove( );
 				});
 			return;
@@ -43,20 +43,20 @@ $( document ).ready( function ( ) {
 
 		if ( data.key === 'change' ) {
 			var client_old = $( '#ts-client-' + data.clid );
-			var client = $( data.body );
+			var client_new = $( data.body );
 			var cid = client_old.closest( '.ts-channel-clients' ).attr( 'id' );
 				cid = parseInt( cid.substr( cid.lastIndexOf( '-' ) + 1 ), 10 );
 
 			if ( cid === data.cid )
-				return client_old.replaceWith( client );
+				return client_old.replaceWith( client_new );
 
 			client_old.fadeOut( 'fast', function ( ) {
-				client.animate({ backgroundColor: '#CfE3FF' }, 0 );
+				client_new.animate({ backgroundColor: '#CfE3FF' }, 0 );
 				client_old
 					.appendTo( '#ts-channel-clients-' + data.cid )
-					.replaceWith( client )
+					.replaceWith( client_new )
 					.fadeIn( 'slow' );
-				client.animate({ backgroundColor: '' }, 1000 );
+				client_new.animate({ backgroundColor: '' }, 1000 );
 			});
 			return;
 		}

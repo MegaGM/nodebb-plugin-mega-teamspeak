@@ -1,15 +1,12 @@
-{{#if userslug}} <a href="/user/{{ userslug }}" class="ts-userlink">{{/if}}
-<div class="ts-client{{#if userslug}} ts-userlink{{/if}}" id="ts-client-{{ clid }}">
+<div class="ts-client{{#unless userslug}} ts-client-gray{{/unless}} animated" id="ts-client-{{ clid }}"{{#if userslug}} data-userlink="user/{{ userslug }}"{{/if}}>
 	{{#each prefix}}
-		<div class="ts-prefix {{ this }}">&nbsp;</div>
+		<div class="ts-prefix {{ this }}">1&nbsp;</div>
 	{{/each}}
 
 	<div class="ts-client-flag {{ flag }}">&nbsp;</div>
 
-	<div class="ts-client-body">
-		<div class="ts-client-header{{#unless userslug}} ts-gray-client{{/unless}}">
-			{{ nick }}
-		</div>
+	<div class="ts-client-header">
+		{{ nick }}
 	</div>
 
 	{{#if client_country}}
@@ -32,4 +29,3 @@
 		">&nbsp;</div>
 	{{/if}}
 </div>
-{{#if userslug}}</a>{{/if}}
