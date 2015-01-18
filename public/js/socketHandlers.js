@@ -1,7 +1,3 @@
-
-
-
-
 /* ---------------------------------------------
 * Socket handlers
 * ---------------------------------------------*/
@@ -27,20 +23,28 @@ $( document ).ready( function ( ) {
 
 		if ( data.key === 'online' ) {
 			var client = $( data.body )
-				.css( 'display', 'none' )
+				.hide( )
 				.css( 'visibility', 'hidden' )
+				.animate({ backgroundColor: '#3AB261' }, 0 )
 				.appendTo( '#ts-channel-clients-' + data.cid )
-				.show( 'medium' )
+				.show( 'slow', function ( ) {
+					$( this ).reziseClientHeader( );
+				})
 				.addClass( 'slideRight' )
 				.one( 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function ( ) {
 					$( this ).css( 'visibility', '' )
-						.removeClass( 'slideRight' );
+						.reziseClientHeader( )
+						.removeClass( 'slideRight' )
+						.animate({ backgroundColor: '' }, 1000, function ( ) {
+							$( this ).css( 'backgroundColor', '' );
+						});
 				});
 			return;
 		}
 
 		if ( data.key === 'offline' ) {
 			var client = $( '#ts-client-' + data.clid )
+				.animate({ backgroundColor: '#FF625F' }, 47 )
 				.addClass( 'animated fadeOutLeft' )
 				.one( 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function ( ) {
 					$( this ).hide( 'medium', function ( ) {
@@ -60,13 +64,18 @@ $( document ).ready( function ( ) {
 				return client_old.replaceWith( client_new );
 
 			client_old.hide( 'slow', function ( ) {
-				client_new.animate({ backgroundColor: '#CfE3FF' }, 0 );
+				client_new.animate({ backgroundColor: '#7787FF' }, 0 );
 				client_old
 					.appendTo( '#ts-channel-clients-' + data.cid )
 					.replaceWith( client_new );
+
 				client_new
+					.css( 'visibility', 'hidden' )
 					.hide( )
-					.show( 'slow' )
+					.show( 'slow', function ( ) {
+						$( this ).reziseClientHeader( );
+					})
+					.css( 'visibility', '' )
 					.animate({ backgroundColor: '' }, 1000, function ( ) {
 						$( this ).css( 'backgroundColor', '' );
 					});
@@ -75,6 +84,5 @@ $( document ).ready( function ( ) {
 		}
 			return;
 	});
-
 
 });

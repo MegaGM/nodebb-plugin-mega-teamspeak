@@ -16,6 +16,13 @@
 		"client_login_name": "Megingjardo",
 		"client_login_password": "7hq2SAb8"
 	},
+	"acl": [
+		{ "siteGroup": "Лидеры", "sgid": "17" },
+		{ "siteGroup": "Офицеры", "sgid": "21" },
+		{ "siteGroup": "Рыцари", "sgid": "23" },
+		{ "siteGroup": "wqel", "sgid": "9832" }
+	],
+	"transparentSgids": [ "2", "8" ],
 	"viewer": {
 		"eventName": "mega:teamspeak.events",
 		"channels": {

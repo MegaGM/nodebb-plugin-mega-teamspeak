@@ -69,7 +69,7 @@ var waterfallCallback = function ( err, data ) {
 			winston.verbose( '[ Mega:Teamspeak.watcher ] cycleCount: ', cycleCount );
 		}
 		setTimeout( resumeCycle, config.ts.stats.cycleStep * 1000 );
-		/*console.log( 'RESUME CYCLE', cycleCount, process.uptime( ) );*/
+		console.log( 'RESUME CYCLE', cycleCount, process.uptime( ) );
 	});
 };
 
