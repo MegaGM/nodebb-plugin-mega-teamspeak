@@ -28,12 +28,11 @@ $( document ).ready( function ( ) {
 				.animate({ backgroundColor: '#3AB261' }, 0 )
 				.appendTo( '#ts-channel-clients-' + data.cid )
 				.show( 'slow', function ( ) {
-					$( this ).reziseClientHeader( );
+					$( this ).resizeClientHeader( );
 				})
 				.addClass( 'slideRight' )
 				.one( 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function ( ) {
 					$( this ).css( 'visibility', '' )
-						.reziseClientHeader( )
 						.removeClass( 'slideRight' )
 						.animate({ backgroundColor: '' }, 1000, function ( ) {
 							$( this ).css( 'backgroundColor', '' );
@@ -60,8 +59,11 @@ $( document ).ready( function ( ) {
 			var cid = client_old.closest( '.ts-channel-clients' ).attr( 'id' );
 				cid = parseInt( cid.substr( cid.lastIndexOf( '-' ) + 1 ), 10 );
 
-			if ( cid === data.cid )
-				return client_old.replaceWith( client_new );
+			if ( cid === data.cid ) {
+				client_old.replaceWith( client_new );
+				client_new.resizeClientHeader( );
+				return;
+			}
 
 			client_old.hide( 'slow', function ( ) {
 				client_new.animate({ backgroundColor: '#7787FF' }, 0 );
@@ -73,7 +75,7 @@ $( document ).ready( function ( ) {
 					.css( 'visibility', 'hidden' )
 					.hide( )
 					.show( 'slow', function ( ) {
-						$( this ).reziseClientHeader( );
+						$( this ).resizeClientHeader( );
 					})
 					.css( 'visibility', '' )
 					.animate({ backgroundColor: '' }, 1000, function ( ) {

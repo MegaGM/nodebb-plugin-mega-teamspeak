@@ -22,13 +22,13 @@ methods.reload.online = function ( ) {
 methods.reload.teamspeak = function ( ) {
 	$.get( RELATIVE_PATH + '/mega/teamspeak/builder', {}, function ( data ) {
 		$( '#mega-teamspeak' ).html( data ).find( '.ts-client' ).each( function ( index, client ) {
-			methods.reziseClientHeader( client );
+			methods.resizeClientHeader( client );
 		});
 
 	});
 };
 
-methods.reziseClientHeader = function ( client ) {
+methods.resizeClientHeader = function ( client ) {
 	client = client || this;
 	// we forced to adjust .ts-client-header size explicity
 	// since there is no native way to prevent inline-block DIVs
@@ -47,4 +47,4 @@ methods.reziseClientHeader = function ( client ) {
 	return $( client );
 };
 
-$.fn.extend( { reziseClientHeader: methods.reziseClientHeader } );
+$.fn.extend( { resizeClientHeader: methods.resizeClientHeader } );
