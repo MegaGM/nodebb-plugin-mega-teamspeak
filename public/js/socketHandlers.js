@@ -1,3 +1,7 @@
+
+
+
+
 /* ---------------------------------------------
 * Socket handlers
 * ---------------------------------------------*/
@@ -22,21 +26,26 @@ $( document ).ready( function ( ) {
 		}
 
 		if ( data.key === 'online' ) {
-			var client = $( data.body ).hide( )
-				.appendTo( '#ts-channel-clients-' + data.cid );
-
-			client
-				.addClass( 'rollIn' )
-				.show( 'medium' );
+			var client = $( data.body )
+				.css( 'display', 'none' )
+				.css( 'visibility', 'hidden' )
+				.appendTo( '#ts-channel-clients-' + data.cid )
+				.show( 'medium' )
+				.addClass( 'slideRight' )
+				.one( 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function ( ) {
+					$( this ).css( 'visibility', '' )
+						.removeClass( 'slideRight' );
+				});
 			return;
 		}
 
 		if ( data.key === 'offline' ) {
-			var client = $( '#ts-client-' + data.clid );
-			client
-				.addClass( 'rollOut' )
-				.hide( 'slow', function ( ) {
-					this.remove( );
+			var client = $( '#ts-client-' + data.clid )
+				.addClass( 'animated fadeOutLeft' )
+				.one( 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function ( ) {
+					$( this ).hide( 'medium', function ( ) {
+						this.remove( );
+					});
 				});
 			return;
 		}
@@ -50,13 +59,15 @@ $( document ).ready( function ( ) {
 			if ( cid === data.cid )
 				return client_old.replaceWith( client_new );
 
-			client_old.fadeOut( 'fast', function ( ) {
+			client_old.hide( 'slow', function ( ) {
 				client_new.animate({ backgroundColor: '#CfE3FF' }, 0 );
 				client_old
 					.appendTo( '#ts-channel-clients-' + data.cid )
-					.replaceWith( client_new )
-					.fadeIn( 'slow' );
-				client_new.animate({ backgroundColor: '' }, 1000 );
+					.replaceWith( client_new );
+				client_new
+					.hide( )
+					.show( 'slow' )
+					.animate({ backgroundColor: '' }, 1000 );
 			});
 			return;
 		}
