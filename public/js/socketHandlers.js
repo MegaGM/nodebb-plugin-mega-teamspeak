@@ -20,7 +20,7 @@ $( document ).ready( function ( ) {
 	setInterval( pingOnline, 59 * 1000 );
 
 	socket.on( 'mega:teamspeak.events', function ( data ) {
-		console.log( 'mega:teamspeak.events ', data.key, data );
+
 		if ( 'online' === data.key || 'offline' === data.key ) {
 			methods.reload.online( );
 		}
@@ -67,7 +67,9 @@ $( document ).ready( function ( ) {
 				client_new
 					.hide( )
 					.show( 'slow' )
-					.animate({ backgroundColor: '' }, 1000 );
+					.animate({ backgroundColor: '' }, 1000, function ( ) {
+						$( this ).css( 'backgroundColor', '' );
+					});
 			});
 			return;
 		}

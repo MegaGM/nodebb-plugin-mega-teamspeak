@@ -28,12 +28,10 @@ $( document ).ready( function ( ) {
 
 	$( document ).on( 'click', 'div.ts-client[data-userlink]', function ( event ) {
 		event.preventDefault( );
-		console.log( 'WHAT IS THIS', $( this ) );
-
-		console.log( 'LINK?? ', $( this ).attr( 'data-userlink' ) );
 		if ( !$( this ).attr( 'data-userlink' ) ) return;
 		/*app.previousUrl = window.location.href;*/
 		ajaxify.go( $( this ).attr( 'data-userlink' ) );
+		return;
 	});
 
 /*	$( window ).on( 'action:ajaxify.end', function ( e, data ) {
