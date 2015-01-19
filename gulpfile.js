@@ -26,7 +26,6 @@ gulp.task( 'templates', function( ){
 
 gulp.task( 'js', function( ){
 	gulp.src( [ 'source/js/**' ] )
-		/*.pipe( compressor( ) )*/
 		.pipe( concat( 'all.js' ) )
 		.pipe( uglify({
 			compress: {
