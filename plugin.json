@@ -1,20 +1,19 @@
 
 {
 	"id": "nodebb-plugin-mega-teamspeak",
-	"name": "Mega Teamspeak 3 tools",
+	"name": "Mega Teamspeak 3 tools for NodeBB",
 	"library": "./library.js",
 	"less": [
-		"public/less/main.less"
+		"source/less/main.less"
 	],
 	"css": [
-		"public/css/animate.min.css",
-		"public/css/justinanimations.css"
+		"assets/css/all.css"
 	],
 	"scripts": [
-		"public/js"
+		"assets/js/all.min.js"
 	],
 	"staticDirs": {
-		"images": "public/images"
+		"images": "assets/images"
 	},
 	"hooks": [
 		{ "hook": "static:app.load", "method": "init" },

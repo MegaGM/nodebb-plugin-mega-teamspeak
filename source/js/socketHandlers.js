@@ -10,11 +10,6 @@ $( document ).ready( function ( ) {
 		methods.reload.online( );
 	});
 
-	var pingOnline = function ( ) {
-		socket.emit( 'modules.pingOnline' );
-	};
-	setInterval( pingOnline, 59 * 1000 );
-
 	socket.on( 'mega:teamspeak.events', function ( data ) {
 
 		if ( 'online' === data.key || 'offline' === data.key ) {
@@ -65,7 +60,7 @@ $( document ).ready( function ( ) {
 				return;
 			}
 
-			client_old.hide( 'slow', function ( ) {
+			client_old.hide( 'medium', function ( ) {
 				client_new.animate({ backgroundColor: '#7787FF' }, 0 );
 				client_old
 					.appendTo( '#ts-channel-clients-' + data.cid )
@@ -74,7 +69,7 @@ $( document ).ready( function ( ) {
 				client_new
 					.css( 'visibility', 'hidden' )
 					.hide( )
-					.show( 'slow', function ( ) {
+					.show( 'medium', function ( ) {
 						$( this ).resizeClientHeader( );
 					})
 					.css( 'visibility', '' )

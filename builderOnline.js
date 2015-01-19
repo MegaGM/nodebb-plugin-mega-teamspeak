@@ -54,6 +54,7 @@ var getOnlineSite = function ( data, callback ) {
 * ---------------------------------------------*/
 var filterClients = function ( data, callback ) {
 
+	data.onlineTsClear = data.clients.length ? data.clients.length - 1 : 0;
 	var iterator = function ( client, callback ) {
 		if ( client.client_type ) return callback( false );
 		if ( _.contains( config.ts.viewer.channels.black, client.cid ) ) return callback( false );

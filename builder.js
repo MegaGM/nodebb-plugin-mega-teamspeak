@@ -12,7 +12,7 @@ var async = require.main.require( 'async' ),
 * => Sends: data: { clients, channels, channelGroups }
 * ---------------------------------------------*/
 var getData = function ( callback ) {
-	data.get = [ 'clients', 'channels', 'channelGroups' ];
+	data.get = [ 'clients', 'channels', 'channelGroups', 'serverGroups' ];
 	require( './lib/getData' )( data, callback );
 };
 
@@ -56,6 +56,7 @@ var waterfallCallback = function ( err, data ) {
 
 	app.res.end( data.renderedTree );
 	winston.verbose( '[ Mega:Teamspeak ] Builder: Success' );
+	console.log( data.channelGroups );
 };
 
 startCycle = function ( ) {

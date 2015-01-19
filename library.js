@@ -8,7 +8,6 @@ var async = require.main.require( 'async' ),
 	builderOnline = require( './builderOnline' ),
 	watcher = require( './watcher' ),
 	bounder = require( './bounder' ),
-	pingOnline = require( './lib/pingOnline' ),
 	syncSgids = require( './lib/syncSgids' ),
 	renderCldbids = require( './renderCldbids' ),
 	SocketIndex = require.main.require( './src/socket.io/index' ),
@@ -28,7 +27,6 @@ var async = require.main.require( 'async' ),
 			* Bind sockets functions
 			* ---------------------------------------------*/
 			SocketModules.bounder = bounder;
-			SocketModules.pingOnline = pingOnline;
 
 			/* ---------------------------------------------
 			* Run daemons
