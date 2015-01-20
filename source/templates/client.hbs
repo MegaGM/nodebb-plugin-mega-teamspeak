@@ -15,19 +15,25 @@
 		">&nbsp;</div>
 	{{/if}}
 
+	{{#if iconid}}
+		<div class="ts-client-info" style="
+			background: url( '{{ imagesPath }}icons/icon_{{ iconid }}' ) no-repeat center center;
+		">&nbsp;</div>
+	{{/if}}
+
 	{{#each serverGroups}}
 		{{#if this.iconid}}
-		<div class="ts-client-info" style="
-			background: url( '{{ ../../imagesPath }}icons/icon_{{ this.iconid }}' ) no-repeat center center;
-		">&nbsp;</div>
+			<div class="ts-client-info" style="
+				background: url( '{{ ../../imagesPath }}icons/icon_{{ this.iconid }}' ) no-repeat center center;
+			">&nbsp;</div>
 		{{/if}}
 	{{/each}}
 
 	{{#if channelGroup}}
 		{{#if channelGroup.iconid}}
-		<div class="ts-client-info" style="
-			background: url( '{{ imagesPath }}icons/icon_{{ channelGroup.iconid }}' ) no-repeat center center;
-		">&nbsp;</div>
+			<div class="ts-client-info" style="
+				background: url( '{{ imagesPath }}icons/icon_{{ channelGroup.iconid }}' ) no-repeat center center;
+			">&nbsp;</div>
 		{{/if}}
 	{{/if}}
 </div>

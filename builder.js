@@ -4,7 +4,7 @@ var async = require.main.require( 'async' ),
 	winston = require.main.require( 'winston' ),
 	methods = require( './lib/methods' ),
 	startCycle,
-	data = {}, app = {};
+	data = {what:1}, app = {};
 
 
 /**
@@ -12,7 +12,7 @@ var async = require.main.require( 'async' ),
  * @return callback( err, data: {clients, channels, channelGroups, serverGroups} )
  */
 var getData = function ( callback ) {
-	data.get = [ 'clients', 'channels', 'channelGroups', 'serverGroups' ];
+	data.get = [ 'forceReload', 'clients', 'channels', 'channelGroups', 'serverGroups' ];
 	require( './lib/getData' )( data, callback );
 };
 
@@ -26,7 +26,7 @@ var filterClients = require( './lib/filterClients' );
 
 /**
  * % Waterfall 3
- * @return callback( err, data: {clients, channels, channelGroups, serverGroups, tree} )
+ * @return callback( err, data: {clients, channels, channelGroups, serverGroups} )
  */
 var filterGroups = require( './lib/filterGroups' );
 
@@ -65,10 +65,7 @@ var wCallback = function ( err, data ) {
 	}
 
 	app.res.end( data.renderedTree );
-	winston.verbose( '[ Mega:Teamspeak ] Builder: Success' );
-	console.log( data.serverGroups );
-	console.log( '\n\n\n\n' );
-	console.log( data.channelGroups );
+	winston.verbose( '[ Mega:Teamspeak ] Builder: Success', ++data.what );
 	console.log( '\n\n\n\n' );
 	console.log( data.clients );
 };
