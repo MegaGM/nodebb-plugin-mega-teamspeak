@@ -9,23 +9,25 @@
 		{{ nick }}
 	</div>
 
-	{{#if client_country}}
+	{{#if country}}
 		<div class="ts-client-info" style="
-			background: url( '{{ iconPath }}countries/{{ client_country }}.png' ) no-repeat center center;
+			background: url( '{{ imagesPath }}countries/{{ country }}.png' ) no-repeat center center;
 		">&nbsp;</div>
 	{{/if}}
 
-	{{#if client_servergroups}}
-		{{#each client_servergroups}}
-			<div class="ts-client-info" style="
-				background: url( '{{ ../iconPath }}servergroups/{{ this }}.png' ) no-repeat center center;
-			">&nbsp;</div>
-		{{/each}}
-	{{/if}}
-
-	{{#if client_channel_group_id}}
+	{{#each serverGroups}}
+		{{#if this.iconid}}
 		<div class="ts-client-info" style="
-			background: url( '{{ iconPath }}channelgroups/{{ client_channel_group_id }}.png' ) no-repeat center center;
+			background: url( '{{ ../../imagesPath }}icons/icon_{{ this.iconid }}' ) no-repeat center center;
 		">&nbsp;</div>
+		{{/if}}
+	{{/each}}
+
+	{{#if channelGroup}}
+		{{#if channelGroup.iconid}}
+		<div class="ts-client-info" style="
+			background: url( '{{ imagesPath }}icons/icon_{{ channelGroup.iconid }}' ) no-repeat center center;
+		">&nbsp;</div>
+		{{/if}}
 	{{/if}}
 </div>

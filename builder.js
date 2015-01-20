@@ -4,51 +4,61 @@ var async = require.main.require( 'async' ),
 	winston = require.main.require( 'winston' ),
 	methods = require( './lib/methods' ),
 	startCycle,
-	data = { }, app = { };
+	data = {}, app = {};
 
 
-/* ---------------------------------------------
-* % Waterfall
-* => Sends: data: { clients, channels, channelGroups }
-* ---------------------------------------------*/
+/**
+ * % Waterfall 1
+ * @return callback( err, data: {clients, channels, channelGroups, serverGroups} )
+ */
 var getData = function ( callback ) {
 	data.get = [ 'clients', 'channels', 'channelGroups', 'serverGroups' ];
 	require( './lib/getData' )( data, callback );
 };
 
-/* ---------------------------------------------
-* % Waterfall
-* <= Takes: data: { clients, channels, channelGroups }
-* => Sends: data: { clients, channels, channelGroups }
-* ---------------------------------------------*/
+
+/**
+ * % Waterfall 2
+ * @return callback( err, data: {clients, channels, channelGroups, serverGroups} )
+ */
 var filterClients = require( './lib/filterClients' );
 
-/* ---------------------------------------------
-* % Waterfall
-* <= Takes: data: { clients, channels, channelGroups }
-* => Sends: data: { clients, channels, channelGroups, tree }
-* ---------------------------------------------*/
+
+/**
+ * % Waterfall 3
+ * @return callback( err, data: {clients, channels, channelGroups, serverGroups, tree} )
+ */
+var filterGroups = require( './lib/filterGroups' );
+
+
+/**
+ * % Waterfall 4
+ * @return callback( err, data: {clients, channels, channelGroups, serverGroups, tree} )
+ */
 var gatherTree = require( './lib/gatherTree' );
 
 
-/* ---------------------------------------------
-* % Waterfall
-* <= Takes: data: { clients, channels, channelGroups, tree }
-* => Sends: tree
-* ---------------------------------------------*/
+/**
+ * % Waterfall 5
+ * @return callback( err, data: {clients, channels, channelGroups, serverGroups, tree, renderedTree} )
+ */
 var renderTree = require( './lib/renderTree' );
 
-/* ---------------------------------------------
-* MODULE CONTROL FLOW
-* ---------------------------------------------*/
-var waterfallArr = [
+
+/**
+ * % Waterfall Control Flow
+ * Send data.renderedTree to client
+ * @return void
+ */
+var wArray = [
 	getData,
 	filterClients,
+	filterGroups,
 	gatherTree,
 	renderTree
 ];
 
-var waterfallCallback = function ( err, data ) {
+var wCallback = function ( err, data ) {
 	if ( err ) {
 		app.res.end( methods.getError( { id: 17007 } ) );
 		return methods.logError( methods.getError( err ), __filename );
@@ -56,13 +66,21 @@ var waterfallCallback = function ( err, data ) {
 
 	app.res.end( data.renderedTree );
 	winston.verbose( '[ Mega:Teamspeak ] Builder: Success' );
+	console.log( data.serverGroups );
+	console.log( '\n\n\n\n' );
 	console.log( data.channelGroups );
+	console.log( '\n\n\n\n' );
+	console.log( data.clients );
 };
 
 startCycle = function ( ) {
-	async.waterfall( waterfallArr, waterfallCallback );
+	async.waterfall( wArray, wCallback );
 };
 
+
+/* ---------------------------------------------
+* @return void
+* ---------------------------------------------*/
 module.exports = function ( req, res, next ) {
 	app.req = req;
 	app.res = res;
