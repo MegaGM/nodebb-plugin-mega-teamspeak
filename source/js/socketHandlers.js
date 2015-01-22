@@ -1,6 +1,6 @@
-/* ---------------------------------------------
-* Socket handlers
-* ---------------------------------------------*/
+/**
+ * Websockets events handlers
+ */
 $( document ).ready( function ( ) {
 	socket.on( 'mega:teamspeak.reload', function ( data ) {
 		methods.reload.teamspeak( );
@@ -16,7 +16,7 @@ $( document ).ready( function ( ) {
 			methods.reload.online( );
 		}
 
-		if ( data.key === 'online' ) {
+		if ( 'online' === data.key ) {
 			var client = $( data.body )
 				.hide( )
 				.css( 'visibility', 'hidden' )
@@ -36,7 +36,7 @@ $( document ).ready( function ( ) {
 			return;
 		}
 
-		if ( data.key === 'offline' ) {
+		if ( 'offline' === data.key ) {
 			var client = $( '#ts-client-' + data.clid )
 				.animate({ backgroundColor: '#FF625F' }, 47 )
 				.addClass( 'animated fadeOutLeft' )
@@ -48,7 +48,7 @@ $( document ).ready( function ( ) {
 			return;
 		}
 
-		if ( data.key === 'change' ) {
+		if ( 'change' === data.key ) {
 			var client_old = $( '#ts-client-' + data.clid );
 			var client_new = $( data.body );
 			var cid = client_old.closest( '.ts-channel-clients' ).attr( 'id' );

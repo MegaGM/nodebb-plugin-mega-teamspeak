@@ -1,32 +1,27 @@
-/* ---------------------------------------------
-* Client-side methods library
-* dependencies: jQuery
-* ---------------------------------------------*/
+/**
+ * Client-side methods library
+ * dependency: jQuery
+ */
 var methods = {
 	reload: { }
 };
 
-/* ---------------------------------------------
-* CONSTANTS and variables
-* ---------------------------------------------*/
 
-/* ---------------------------------------------
-* METHODS
-* ---------------------------------------------*/
 methods.reload.online = function ( ) {
-	$.get( RELATIVE_PATH + '/mega/online/builder', {}, function ( data ) {
+	$.get( document.location.origin + '/mega/online/builder', {}, function ( data ) {
 		$( '#mega-online' ).html( data );
 	});
 };
 
+
 methods.reload.teamspeak = function ( ) {
-	$.get( RELATIVE_PATH + '/mega/teamspeak/builder', {}, function ( data ) {
+	$.get( document.location.origin + '/mega/teamspeak/builder', {}, function ( data ) {
 		$( '#mega-teamspeak' ).html( data ).find( '.ts-client' ).each( function ( index, client ) {
 			methods.resizeClientHeader( client );
 		});
-
 	});
 };
+
 
 methods.resizeClientHeader = function ( client ) {
 	client = client || this;
@@ -46,5 +41,6 @@ methods.resizeClientHeader = function ( client ) {
 	$( client ).find( '.ts-client-header' ).css( 'width', header );
 	return $( client );
 };
+
 
 $.fn.extend( { resizeClientHeader: methods.resizeClientHeader } );

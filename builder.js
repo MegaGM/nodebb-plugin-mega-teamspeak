@@ -3,8 +3,9 @@
 var async = require.main.require( 'async' ),
 	winston = require.main.require( 'winston' ),
 	methods = require( './lib/methods' ),
-	startCycle,
-	data = {what:1}, app = {};
+	moduleStart,
+	data = {get: [ 'forceReload', 'clients', 'channels', 'channelGroups', 'serverGroups' ]},
+	app = {};
 
 
 /**
@@ -12,7 +13,6 @@ var async = require.main.require( 'async' ),
  * @return callback( err, data: {clients, channels, channelGroups, serverGroups} )
  */
 var getData = function ( callback ) {
-	data.get = [ 'forceReload', 'clients', 'channels', 'channelGroups', 'serverGroups' ];
 	require( './lib/getData' )( data, callback );
 };
 
@@ -65,12 +65,10 @@ var wCallback = function ( err, data ) {
 	}
 
 	app.res.end( data.renderedTree );
-	winston.verbose( '[ Mega:Teamspeak ] Builder: Success', ++data.what );
-	console.log( '\n\n\n\n' );
-	console.log( data.clients );
+	/*winston.verbose( '[ Mega:Teamspeak ] Builder: Success' );*/
 };
 
-startCycle = function ( ) {
+moduleStart = function ( ) {
 	async.waterfall( wArray, wCallback );
 };
 
@@ -82,5 +80,5 @@ module.exports = function ( req, res, next ) {
 	app.req = req;
 	app.res = res;
 
-	startCycle( );
+	moduleStart( );
 };

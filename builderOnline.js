@@ -6,113 +6,139 @@ var async = require.main.require( 'async' ),
 	winston = require.main.require( 'winston' ),
 	methods = require( './lib/methods' ),
 	renderOnline = require( './templates/online' ),
-	start,
-	data = { }, app = { };
+	SocketIndex = require.main.require( './src/socket.io' ),
+	moduleStart,
+	data = { online: { } }, app = { };
 
 
-/* ---------------------------------------------
-* % Waterfall
-* => Sends: data: { clients }
-* ---------------------------------------------*/
-var getOnlineTs = function ( callback ) {
-	data.get = [ 'clients' ];
+/**
+ * % Waterfall 1
+ */
+var getClients = function ( callback ) {
+	data.get = [ 'forceReload', 'clients' ];
 	require( './lib/getData' )( data, callback );
 };
 
-/* ---------------------------------------------
-* % Waterfall
-* <= Takes: data: { clients }
-* => Sends: data: { clients }
-* ---------------------------------------------*/
-var getOnlineSite = function ( data, callback ) {
+
+/**
+ * % Waterfall 2
+ */
+var getUids = function ( data, callback ) {
 	methods.getOnlineUids( function ( err, uids ) {
 		if ( err ) return callback( err );
+		data.uids = uids;
+		callback( err, data );
+	});
+};
 
-		data.onlineUidsCount = uids.length;
-		async.each( uids, function ( uid, callback ) {
-			methods.getCldbidsByUid( uid, function ( err, cldbids ) {
-				if ( err ) return callback( err );
 
-				async.each( cldbids, function ( cldbid, callback ) {
-					if ( !data.siteOnlineCldbids ) data.siteOnlineCldbids = [ ];
-					data.siteOnlineCldbids.push( cldbid );
-					callback( null );
-				}, function ( err ) {
-					callback( err );
-				});
+/**
+ * % Waterfall 3
+ */
+var getAnons = function ( data, callback ) {
+	data.online.siteAnons = SocketIndex.getOnlineAnonCount( );
+	console.log( 'data.online wat3', data.online );
+	callback( null, data );
+};
+
+
+/**
+ * % Waterfall 4
+ */
+var makeOnsiteClients = function ( data, callback ) {
+	// % Each uids Iterator
+	var iterator = function ( uid, callback ) {
+		methods.getCldbidsByUid( uid, function ( err, cldbids ) {
+			if ( err ) return callback( err );
+
+			// % Each cldbids iterator
+			var iterator = function ( cldbid, callback ) {
+				if ( !data.onSiteClients ) data.onSiteClients = [ ];
+				data.onSiteClients.push( cldbid );
+				callback( null );
+			};
+
+			// % Each cldbids Control Flow
+			async.each( cldbids, iterator, function ( err ) {
+				callback( err );
 			});
-		}, function ( err ) {
-			callback( err, data );
+		});
+	};
+
+	// % Each uids Control Flow
+	async.each( data.uids, iterator, function ( err ) {
+		callback( err, data );
+	});
+};
+
+
+/**
+ * % Waterfall 5
+ */
+var filterClients = function ( data, callback ) {
+
+	require( './lib/filterClients' )( data, function ( err, data ) {
+
+		var iterator = function ( client, callback ) {
+			if ( _.contains( data.onSiteClients, '' + client.client_database_id ) ) return callback( false );
+			return callback( true );
+		};
+
+		async.filter( data.clients, iterator, function ( clients ) {
+			data.clientsFiltered = clients;
+			callback( null, data );
 		});
 	});
 };
 
-/* ---------------------------------------------
-* % Waterfall
-* <= Takes: data: { clients }
-* => Sends: data: { clients }
-* ---------------------------------------------*/
-var filterClients = function ( data, callback ) {
 
-	data.onlineTsClear = data.clients.length ? data.clients.length - 1 : 0;
-	var iterator = function ( client, callback ) {
-		if ( client.client_type ) return callback( false );
-		if ( _.contains( config.ts.viewer.channels.black, client.cid ) ) return callback( false );
-		if ( _.contains( data.siteOnlineCldbids, '' + client.client_database_id ) ) return callback( false );
-		return callback( true );
-	};
-
-	async.filter( data.clients, iterator, function ( clients ) {
-		data.clients = clients;
-		data.onlineCldbidsCount = clients.length;
-		callback( null, data );
-	});
+/**
+ * % Waterfall 6
+ */
+var extractOnline = function ( data, callback ) {
+	data.online.site = data.uids.length || 0;
+	data.online.teamspeak = data.clients.length || 0;
+	data.online.teamspeakWO = data.clientsFiltered.length || 0;
+	data.online.overall = data.online.site + data.online.siteAnons + data.online.teamspeakWO;
+	console.log( 'data.online: ', data.online );
+	console.log( 'DATA\n\n\n', data );
+	callback( null );
 };
 
 
-/* ---------------------------------------------
-* % Waterfall
-* <= Takes: data: { clients }
-* => Sends: data: { clients }
-* ---------------------------------------------*/
-var buildOnline = function ( data, callback ) {
-	data.onlineCount =
+	/*data.onlineCount =
 		parseInt( data.onlineUidsCount, 10 )
-		+ parseInt( data.onlineCldbidsCount, 10 );
+		+ parseInt( data.onlineCldbidsCount, 10 );*/
 
-	console.log( 'data.onlineUidsCount = ', data.onlineUidsCount );
-	console.log( 'data.onlineCldbidsCount = ', data.onlineCldbidsCount );
-	console.log( 'onlineCount = ', data.onlineCount );
 
-	callback( null, data );
-};
-
-/* ---------------------------------------------
-* MODULE CONTROL FLOW
-* ---------------------------------------------*/
-var waterfallArr = [
-	getOnlineTs,
-	getOnlineSite,
+/**
+ * % Waterfall Control Flow
+ */
+var wArray = [
+	getClients,
+	getUids,
+	getAnons,
+	makeOnsiteClients,
 	filterClients,
-	buildOnline
+	extractOnline
 ];
 
-var waterfallCallback = function ( err ) {
+var wCallback = function ( err ) {
 	if ( err ) {
 		app.res.end( methods.getError( { id: 12007 } ) );
 		return methods.logError( methods.getError( err ), __filename );
 	}
+
 	app.res.end( renderOnline( data ) );
-	winston.verbose( '[ Mega:Teamspeak ] BuilderOnline: Success' );
 };
 
-start = function ( ) {
-	async.waterfall( waterfallArr, waterfallCallback );
+moduleStart = function ( ) {
+	async.waterfall( wArray, wCallback );
 };
 
 module.exports = function ( req, res, next ) {
 	app.req = req;
 	app.res = res;
 
-	start( );
+	moduleStart( );
 };
