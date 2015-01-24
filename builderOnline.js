@@ -37,7 +37,6 @@ var getUids = function ( data, callback ) {
  */
 var getAnons = function ( data, callback ) {
 	data.online.siteAnons = SocketIndex.getOnlineAnonCount( );
-	console.log( 'data.online wat3', data.online );
 	callback( null, data );
 };
 
@@ -100,8 +99,6 @@ var extractOnline = function ( data, callback ) {
 	data.online.teamspeak = data.clients.length || 0;
 	data.online.teamspeakWO = data.clientsFiltered.length || 0;
 	data.online.overall = data.online.site + data.online.siteAnons + data.online.teamspeakWO;
-	console.log( 'data.online: ', data.online );
-	console.log( 'DATA\n\n\n', data );
 	callback( null );
 };
 

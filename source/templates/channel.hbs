@@ -4,6 +4,13 @@
 	{{/if}}
 	<div class="ts-channel-header">{{{ channel_name }}}</div>
 
+
+	{{#if iconid}}
+		<div class="ts-channel-info" style="
+			background: url( '{{ imagesPath }}icons/icon_{{ iconid }}' ) no-repeat center center;
+		">&nbsp;</div>
+	{{/if}}
+
 	<div class="ts-channel-clients" id="ts-channel-clients-{{ cid }}">
 		{{#if clients}}
 			{{{ clients }}}

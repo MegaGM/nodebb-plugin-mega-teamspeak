@@ -20,7 +20,7 @@ $( document ).ready( function ( ) {
 			var client = $( data.body )
 				.hide( )
 				.css( 'visibility', 'hidden' )
-				.animate({ backgroundColor: '#3AB261' }, 0 )
+				.animate({ backgroundColor: '#86ba4b' }, 0 )
 				.appendTo( '#ts-channel-clients-' + data.cid )
 				.show( 'slow', function ( ) {
 					$( this ).resizeClientHeader( );
@@ -38,7 +38,7 @@ $( document ).ready( function ( ) {
 
 		if ( 'offline' === data.key ) {
 			var client = $( '#ts-client-' + data.clid )
-				.animate({ backgroundColor: '#FF625F' }, 47 )
+				.animate({ backgroundColor: '#FF7977' }, 47 )
 				.addClass( 'animated fadeOutLeft' )
 				.one( 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function ( ) {
 					$( this ).hide( 'medium', function ( ) {
@@ -48,7 +48,7 @@ $( document ).ready( function ( ) {
 			return;
 		}
 
-		if ( 'change' === data.key ) {
+		if ( 'update' === data.key ) {
 			var client_old = $( '#ts-client-' + data.clid );
 			var client_new = $( data.body );
 			var cid = client_old.closest( '.ts-channel-clients' ).attr( 'id' );
@@ -61,7 +61,7 @@ $( document ).ready( function ( ) {
 			}
 
 			client_old.hide( 'medium', function ( ) {
-				client_new.animate({ backgroundColor: '#7787FF' }, 0 );
+				client_new.animate({ backgroundColor: '#59A8C2' }, 0 );
 				client_old
 					.appendTo( '#ts-channel-clients-' + data.cid )
 					.replaceWith( client_new );

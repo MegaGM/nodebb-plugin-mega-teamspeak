@@ -12,7 +12,6 @@ var async = require.main.require( 'async' ),
 
 /**
  * % Waterfall 1
- * @return callback( err, data: {clients, channels} );
  */
 var getData = function ( callback ) {
 	require( './lib/getData' )( data, callback );
@@ -21,28 +20,24 @@ var getData = function ( callback ) {
 
 /**
  * % Waterfall 2
- * @return callback( err, data: {clients, channels} );
  */
 var filterClients = require( './lib/filterClients' );
 
 
 /**
  * % Waterfall 3
- * @return callback( err, data: {clients, channels, channelGroups, serverGroups} )
  */
 var filterGroups = require( './lib/filterGroups' );
 
 
 /**
  * % Waterfall 4
- * @return callback( err, data: {clients, channels, events} );
  */
 var gatherEvents = require( './lib/gatherEvents' );
 
 
 /**
  * % Waterfall 5
- * @return callback( err, data: {clients, channels, events, renderedEvents} );
  */
 var renderEvents = require( './lib/renderEvents' );
 
@@ -61,32 +56,62 @@ var wArray = [
 ];
 
 var wCallback = function ( err, data ) {
-	cycleCount++;
+	++cycleCount;
 
+	/**
+	 * Shedule next try in time x10 if there is an error
+	 * Typically the error is teamspeak connection problem
+	 */
 	if ( err ) {
 		setTimeout( moduleStart, config.ts.stats.cycleStep * 1000 * 10 );
 		return methods.logError( methods.getError( err ), __filename );
 	}
 
-	// each renderedEvents
-	var iterator = function ( renderedEvent, callback ) {
-		SocketIndex.server.sockets.emit( config.ts.viewer.eventName, renderedEvent );
-		callback( null );
-	};
 
-	async.each( data.renderedEvents, iterator, function ( err, results ) {
-		/*if ( !( cycleCount % 100000 ) )
-			winston.verbose( '[ Mega:Teamspeak.watcher ] cycleCount: ', cycleCount );*/
-
+	/**
+	 * Resume cycle method
+	 */
+	var continueCycle = function ( ) {
 		if ( !( cycleCount % config.ts.stats.forceReload ) )
 			data.get.push( 'forceReload' );
 		else
 			data.get = _.without( data.get, 'forceReload' );
 
-			/*console.log( cycleCount, process.memoryUsage( ).heapUsed, process.uptime( ) );*/
+		// Some logging
+		/*if ( !( cycleCount % 100000 ) )
+			winston.verbose( '[ Mega:Teamspeak.watcher ] cycleCount: ', cycleCount );*/
+		/*console.log( cycleCount, process.memoryUsage( ).heapUsed, process.uptime( ) );*/
 
+		// For performance testing
 		/*moduleStart( );*/
+
+		// Normal way to schedule next iteration
 		setTimeout( moduleStart, config.ts.stats.cycleStep * 1000 );
+	};
+
+
+	/**
+	 * If there are any changes with channels, channelGroups or serverGroups
+	 * Force all clients to reload entire tree, without pushing any events
+	 */
+	if ( data.events.forceReload ) {
+		SocketIndex.server.sockets.emit( 'mega:teamspeak.reload', { } );
+		console.log( 'EVENT FORCERELOAD FROM WATCHER 99' );
+		return continueCycle( );
+	}
+
+
+	/**
+	 * % Each events.rendered
+	 * If all okay, push via sockets to all listeners on the client-side
+	 */
+	var iterator = function ( item, next ) {
+		SocketIndex.server.sockets.emit( config.ts.viewer.eventName, item );
+		next( null );
+	};
+
+	async.each( data.events.rendered, iterator, function ( err, results ) {
+		continueCycle( );
 	});
 };
 
