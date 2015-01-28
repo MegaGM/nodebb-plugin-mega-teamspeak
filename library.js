@@ -15,27 +15,29 @@ var async = require.main.require( 'async' ),
 
 	var Plugin = {
 		init: function ( params, callback ) {
-			/* ---------------------------------------------
-			* Define routes
-			* ---------------------------------------------*/
+			/**
+			 * Define routes
+			 */
 			params.app.disable( 'x-powered-by' );
 			params.router.get( '/mega/online/builder', builderOnline );
 			params.router.get( '/mega/teamspeak/builder', builder );
 			params.router.get( '/mega/teamspeak/bounder/uid/:uid', renderCldbids );
 
-			/* ---------------------------------------------
-			* Bind sockets functions
-			* ---------------------------------------------*/
+			/**
+			 * Bind sockets functions
+			 */
 			SocketModules.bounder = bounder;
 
-			/* ---------------------------------------------
-			* Run daemons
-			* ---------------------------------------------*/
+
+			/**
+			 * Run daemons
+			 */
 			watcher( );
 
-			/* ---------------------------------------------
-			* Done!
-			* ---------------------------------------------*/
+
+			/**
+			 * Well done!
+			 */
 			callback( null );
 		},
 		syncSgids: function ( data ) {
@@ -46,5 +48,4 @@ var async = require.main.require( 'async' ),
 	};
 
 	module.exports = Plugin;
-
 })( );
