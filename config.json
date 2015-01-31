@@ -68,8 +68,8 @@
 		}
 	},
 	"stats": {
-		"cycleStep": 0.95,
-		"forceReload": 3,
+		"cycleStep": 0.25,
+		"forceReload": 2,
 		"workModelsStep": 1,
 		"getChansStep": 60,
 		"maxIdleBeforeAltab": 540,
