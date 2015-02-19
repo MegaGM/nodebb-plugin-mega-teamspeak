@@ -3,7 +3,9 @@
 		<div class="ts-prefix {{ this }}">1&nbsp;</div>
 	{{/each}}
 
-	<div class="ts-client-flag {{ flag }}">&nbsp;</div>
+	<div class="ts-client-flag" style="
+			background: url( '{{ imagesPath }}flags/{{ flag }}.png' ) no-repeat center center;
+		">&nbsp;</div>
 
 	<div class="ts-client-header">
 		{{ nick }}
