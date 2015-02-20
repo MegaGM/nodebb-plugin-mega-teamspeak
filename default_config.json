@@ -18,9 +18,10 @@
 	},
 	"acl": [
 		{ "siteGroup": "Лидеры", "sgid": "17" },
-		{ "siteGroup": "Офицеры", "sgid": "21" },
-		{ "siteGroup": "Рыцари", "sgid": "23" },
-		{ "siteGroup": "wqel", "sgid": "9832" }
+		{ "siteGroup": "Офицеры", "sgid": "13" },
+		{ "siteGroup": "Рекрутеры", "sgid": "12" },
+		{ "siteGroup": "Рыцари", "sgid": "10" },
+		{ "siteGroup": "Друзяшки", "sgid": "11" }
 	],
 	"transparentSgids": [ "2", "8" ],
 	"ignoredSgids": [ "2" ],
