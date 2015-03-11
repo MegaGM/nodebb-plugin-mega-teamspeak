@@ -159,7 +159,11 @@ module.exports = function ( socket, data, callback ) {
 
 							Controller.purgePincode( dbData.uid );
 							syncSgids( dbData.uid, function ( err ) {
-								if ( err ) return callback( 'Произошла ошибка синхронизации. Пожалуйста, напишите об этом Меге. Код ошибки: 80' );
+								if ( err ) {
+									winston.error('[ Mega:Teamspeak.bounder ] syncSgids ', err);
+									return callback( 'Произошла ошибка синхронизации. Пожалуйста, напишите об этом Меге. Код ошибки: 80' );
+								}
+
 								SocketIndex.server.sockets.emit( 'mega:teamspeak.reload', { } );
 								callback( null, 'Привязка аккаунта Teamspeak осуществлена успешно!' );
 							});
