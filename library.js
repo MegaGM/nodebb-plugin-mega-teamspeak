@@ -9,6 +9,7 @@ var async = require.main.require( 'async' ),
 	watcher = require( './watcher' ),
 	bounder = require( './bounder' ),
 	syncSgids = require( './lib/syncSgids' ),
+	syncAll = require('./syncAll'),
 	renderCldbids = require( './renderCldbids' ),
 	SocketIndex = require.main.require( './src/socket.io/index' ),
 	SocketModules = require.main.require( './src/socket.io/modules' );
@@ -21,6 +22,7 @@ var async = require.main.require( 'async' ),
 			params.app.disable( 'x-powered-by' );
 			params.router.get( '/mega/online/builder', builderOnline );
 			params.router.get( '/mega/teamspeak/builder', builder );
+			params.router.get( '/mega/teamspeak/syncAll', syncAll );
 			params.router.get( '/mega/teamspeak/bounder/uid/:uid', renderCldbids );
 
 			/**
