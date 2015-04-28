@@ -4,6 +4,7 @@
 var async = require.main.require( 'async' ),
 	config = require( './config' ),
 	winston = require.main.require( 'winston' ),
+	methods = require('./lib/methods'),
 	builder = require( './builder' ),
 	builderOnline = require( './builderOnline' ),
 	watcher = require( './watcher' ),
