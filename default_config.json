@@ -28,7 +28,7 @@
 	"viewer": {
 		"eventName": "mega:teamspeak.events",
 		"channels": {
-			"black": [ 23, 43, 120, 125 ]
+			"black": [ 23, 43, 120, 125, 51 ]
 		}
 	},
 	"stats": {
