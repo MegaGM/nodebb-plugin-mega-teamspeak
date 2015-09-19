@@ -1,11 +1,8 @@
 {
 	"name": "nodebb-plugin-mega-teamspeak",
-	"version": "1.2.7",
+	"version": "1.2.8",
 	"description": "Mega Teamspeak 3 tools for NodeBB",
 	"main": "library.js",
-	"nbbpm": {
-		"compatibility": "^0.6.0"
-	},
 	"readme": "ERROR: No README data found!",
 	"scripts": {},
 	"dependencies": {
