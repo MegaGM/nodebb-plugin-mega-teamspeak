@@ -2,9 +2,6 @@
 {
 	"id": "nodebb-plugin-mega-teamspeak",
 	"name": "Mega Teamspeak 3 tools for NodeBB",
-	"nbbpm": {
-		"compatibility": "^0.8.0"
-	},
 	"library": "./library.js",
 	"less": [
 		"source/less/main.less"
