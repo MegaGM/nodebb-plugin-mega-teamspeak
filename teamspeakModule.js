@@ -50,17 +50,17 @@ var tsConnect = function ( callback ) {
 
 		cl.on( 'connect', function ( err ) {
 			cl.send( 'login', config.ts.credentials, function( err, res ) {
-				if ( err.id ) return callback( methods.getError( err ) );
+				if ( err && err.id ) return callback( methods.getError( err ) );
 
 				cl.send( 'use', { sid: 1 }, function( err, res ) {
-					if ( err.id ) return callback( methods.getError( err ) );
+					if ( err && err.id ) return callback( methods.getError( err ) );
 
 						cl.send( 'clientupdate', { client_nickname: 'Megа' }, function( err, res ) {
-							if ( err.id ) methods.logError( methods.getError( err ), __filename );
-							if ( err.id !== 513 ) return;
+							if ( err && err.id ) methods.logError( methods.getError( err ), __filename );
+							if ( err && err.id !== 513 ) return;
 
 							cl.send( 'clientupdate', { client_nickname: 'Mеgа' }, function( err, res ) {
-								if ( err.id ) methods.logError( methods.getError( err ), __filename );
+								if ( err && err.id ) methods.logError( methods.getError( err ), __filename );
 							});
 						});
 
