@@ -1,25 +1,25 @@
 {
-	"name": "nodebb-plugin-mega-teamspeak",
-	"version": "1.2.8",
-	"nbbpm": {
-		"compatibility": "^0.7.1 || ^0.8.0 || ^0.9.0"
-	},
-	"description": "Mega Teamspeak 3 tools for NodeBB",
-	"main": "library.js",
-	"readme": "ERROR: No README data found!",
-	"scripts": {},
-	"dependencies": {
-		"handlebars": "^2.0.0",
-		"lodash": "^2.4.1",
-		"node-teamspeak": "^1.0.4"
-	},
-	"devDependencies": {
-		"gulp": "^3.8.10",
-		"gulp-compressor": "^0.1.0",
-		"gulp-concat": "^2.4.3",
-		"gulp-define-module": "^0.1.1",
-		"gulp-handlebars": "^3.0.1",
-		"gulp-rename": "^1.2.0",
-		"gulp-uglify": "^1.1.0"
-	}
+  "name": "nodebb-plugin-mega-teamspeak",
+  "version": "1.2.9",
+  "nbbpm": {
+    "compatibility": "^0.7.1 || ^0.8.0 || ^0.9.0"
+  },
+  "description": "Mega Teamspeak 3 tools for NodeBB",
+  "main": "library.js",
+  "readme": "ERROR: No README data found!",
+  "scripts": {},
+  "dependencies": {
+    "handlebars": "^2.0.0",
+    "lodash": "^2.4.1",
+    "node-teamspeak": "^1.0.4"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-compressor": "^0.1.0",
+    "gulp-concat": "^2.4.3",
+    "gulp-define-module": "^0.1.1",
+    "gulp-handlebars": "^3.0.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.1.0"
+  }
 }
