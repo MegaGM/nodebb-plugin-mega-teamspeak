@@ -24,6 +24,7 @@ methods.reload.teamspeak = function ( ) {
 
 
 methods.resizeClientHeader = function ( client ) {
+	return $( client );
 	client = client || this;
 	// we forced to adjust .ts-client-header size explicity
 	// since there is no native way to prevent inline-block DIVs
@@ -37,7 +38,6 @@ methods.resizeClientHeader = function ( client ) {
 
 	groups = groups + clientFlag;
 	var header = $( client ).width( ) - groups; // px
-	// console.log( 'CYCLE groups header', groups, header );
 	$( client ).find( '.ts-client-header' ).css( 'width', header );
 	return $( client );
 };
