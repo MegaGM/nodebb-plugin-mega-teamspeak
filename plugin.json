@@ -13,7 +13,8 @@
 		"assets/js/all.min.js"
 	],
 	"staticDirs": {
-		"images": "assets/images"
+		"images": "assets/images",
+		"js": "assets/js"
 	},
 	"hooks": [
 		{ "hook": "static:app.load", "method": "init" },

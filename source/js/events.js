@@ -1,14 +1,6 @@
 
 $( document ).ready( function ( ) {
 
-	$( document ).on( 'click', '#sidebar-area-close-button', function ( event ) {
-		$( '#sidebar-area ' ).animate( {left: -350}, 300);
-	});
-
-	$( document ).on( 'click', '#sidebar-area-open-button', function ( event ) {
-		$( '#sidebar-area' ).show().animate( {left: 0}, 300);
-	});
-
 	/* ---------------------------------------------
 	* Define initial variables
 	* ---------------------------------------------*/
