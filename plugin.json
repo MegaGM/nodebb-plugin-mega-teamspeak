@@ -13,9 +13,9 @@
 		"assets/js/all.min.js"
 	],
 	"staticDirs": {
-		"images": "assets/images",
-		"js": "assets/js"
+		"images": "assets/images"
 	},
+	"templates": "templates/partials",
 	"hooks": [
 		{ "hook": "static:app.load", "method": "init" },
 		{ "hook": "action:group.join", "method": "syncSgids" },

@@ -98,7 +98,7 @@ Controller.boundTeamspeakAccount = function ( uid, cldbid, callback ) {
 	});
 };
 
-module.exports = function ( socket, data, callback ) {
+Controller.socketListener = function ( socket, data, callback ) {
 
 	var waterfallCallback = function ( err, msg ) {
 		if ( err ) winston.verbose( err );
@@ -181,3 +181,5 @@ module.exports = function ( socket, data, callback ) {
 	else
 		winston.error( '[ Mega:Teamspeak.bounder ] wrong data object: ', data );
 };
+
+module.exports = Controller;
