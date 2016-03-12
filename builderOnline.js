@@ -6,7 +6,8 @@ var async = require.main.require( 'async' ),
 	winston = require.main.require( 'winston' ),
 	methods = require( './lib/methods' ),
 	renderOnline = require( './templates/online' ),
-	SocketIndex = require.main.require( './src/socket.io' ),
+	// deprecated in NodeBB
+	// SocketIndex = require.main.require( './src/socket.io' ),
 	moduleStart,
 	data = { online: { } }, app = { };
 
@@ -36,8 +37,12 @@ var getUids = function ( data, callback ) {
  * % Waterfall 3
  */
 var getAnons = function ( data, callback ) {
-	data.online.siteAnons = SocketIndex.getOnlineAnonCount( );
-	callback( null, data );
+	// deprecated in NodeBB
+	// data.online.siteAnons = SocketIndex.getOnlineAnonCount( );
+	require.main.require('./src/socket.io/admin/rooms').getTotalGuestCount(function (err, count) {
+		data.online.siteAnons = count;
+		callback( null, data );
+	});
 };
 
 
@@ -79,7 +84,7 @@ var filterClients = function ( data, callback ) {
 	require( './lib/filterClients' )( data, function ( err, data ) {
 
 		var iterator = function ( client, callback ) {
-			if ( _.contains( data.onSiteClients, '' + client.client_database_id ) ) return callback( false );
+			if ( _.includes( data.onSiteClients, '' + client.client_database_id ) ) return callback( false );
 			return callback( true );
 		};
 

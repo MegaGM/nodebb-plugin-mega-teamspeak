@@ -10,8 +10,9 @@
   "scripts": {},
   "dependencies": {
     "handlebars": "^2.0.0",
-    "lodash": "^2.4.1",
-    "node-teamspeak": "^1.0.4"
+    "lodash": "^4.6.1",
+    "node-teamspeak": "^1.0.4",
+    "redis": "^2.5.0-1"
   },
   "devDependencies": {
     "gulp": "^3.8.10",
