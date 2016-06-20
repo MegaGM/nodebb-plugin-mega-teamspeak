@@ -2,6 +2,7 @@
 
 var async = require.main.require( 'async' ),
 	config = require( './config' ),
+	nbbConfig = require.main.require( './config' ),
 	_ = require( 'lodash' ),
 	winston = require.main.require( 'winston' ),
 	user = require.main.require( './src/user' ),
@@ -11,10 +12,10 @@ var async = require.main.require( 'async' ),
 		/**
 		 * Your Redis connection info
 		 */
-		var port = '6379',
-			host = '127.0.0.1',
-			pass = 'ymxQSNeS4MSNxVpaErJ7hQpnnmNA8cJc',
-			db = 1;
+		var port = nbbConfig.redis.port,
+			host = nbbConfig.redis.host,
+			pass = nbbConfig.redis.password,
+			db = nbbConfig.redis.database;
 
 		var options = pass ? {auth_pass: pass} : {},
 			cl = redis.createClient( port, host, options );
