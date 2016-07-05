@@ -14,6 +14,7 @@
     "node-teamspeak": "^1.0.4",
     "redis": "^2.5.0-1"
   },
+	"author": "Mega <Aza.Noriega@gmail.com>",
   "devDependencies": {
     "gulp": "^3.8.10",
     "gulp-compressor": "^0.1.0",
