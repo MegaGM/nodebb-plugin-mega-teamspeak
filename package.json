@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-mega-teamspeak",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "nbbpm": {
     "compatibility": "^1.0.0"
   },
